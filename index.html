@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <h1>HELPEACE</h1>
+    <p>Version 1.5</p>
+    
+<div class="frame" id="alertModal" style="display: none;">
+    <div class="modal">
+      <img src="https://100dayscss.com/codepen/alert.png" width="44" height="38" />
+      <span class="title">Error 401</span>
+      <p id="alertMessage">An error has occurred.</p>
+      <div class="button" onclick="closeAlert()">Continuar</div>
+    </div>
+  </div>
+  
+
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/php/login.php" method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <a href="/pages/register/register.html">Registrar-se</a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var loginError = urlParams.get('login_error');
+            if (loginError) {
+                showAlert("Usuário ou senha inválidos.");
+            }
+        }
+        
+        function showAlert(message) {
+            var alertModal = document.getElementById("alertModal");
+            var alertMessage = document.getElementById("alertMessage");
+            alertMessage.innerText = message;
+            alertModal.style.display = "flex";
+        }
+        
+        function closeAlert() {
+            var alertModal = document.getElementById("alertModal");
+            alertModal.style.display = "none";
+        }
+        </script>
+
+</body>
+</html>
