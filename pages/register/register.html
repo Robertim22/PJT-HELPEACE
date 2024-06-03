@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Registro</h2>
+        <form action="../../../php/register.php" method="POST">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <button type="submit">Registrar</button>
+        </form>
+        <div class="frame" id="alertModal" style="display: none;">
+            <div class="modal">
+                <img src="https://media.discordapp.net/attachments/1242866331099856974/1245172760381100072/image.gif?ex=6657c900&is=66567780&hm=03e4d584d693098af5d8f0e34148bff1b091fee396984efdbe4ff86339cbe56c&=&width=350&height=350" width="44" height="38" />
+                <span class="title">Error 401</span>
+                <p id="alertMessage" class="success-message">An error has occurred.</p>
+                <div class="button" onclick="closeAlert()">Continuar</div>
+            </div>
+        </div>
+        <a href="../../index.html">Já possui uma conta? Faça login</a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var registerError = urlParams.get('register_error');
+            var registerSuccess = urlParams.get('register_success');
+            
+            if (registerError) {
+                showAlert("Erro no registro: Este email já está cadastrado.");
+            } else if (registerSuccess) {
+                showAlert("Conta criada com sucesso!");
+            }
+        }
+        
+        function showAlert(message) {
+            var alertModal = document.getElementById("alertModal");
+            var alertMessage = document.getElementById("alertMessage");
+            alertMessage.innerText = message;
+            alertModal.style.display = "flex";
+            
+            if (message.includes("sucesso")) {
+                alertMessage.classList.add("success-message");
+            } else {
+                alertMessage.classList.remove("success-message");
+            }
+        }
+        
+        function closeAlert() {
+            var alertModal = document.getElementById("alertModal");
+            alertModal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
